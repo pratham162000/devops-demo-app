@@ -80,12 +80,13 @@ jobs:
       - name: Update GitOps repository
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
+          REPO_OWNER: ${{ github.repository_owner }}
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
 
-          # Clone GitOps repo
-          git clone https://${{ secrets.GH_PAT }}@github.com/${{ github.repository_owner }}/devops-demo-gitops.git
+          # Clone GitOps repo with token
+          git clone https://${GH_TOKEN}@github.com/${REPO_OWNER}/devops-demo-gitops.git
           cd devops-demo-gitops
 
           # Update image tag in deployment.yaml
@@ -97,5 +98,7 @@ jobs:
           else
             git add deployment.yaml
             git commit -m "Update image to ${{ steps.meta.outputs.sha_short }}"
-            git push
+
+            # Push with token in URL
+            git push https://${GH_TOKEN}@github.com/${REPO_OWNER}/devops-demo-gitops.git main
           fi
