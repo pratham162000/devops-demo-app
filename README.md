@@ -241,3 +241,5 @@ Built as a portfolio project to demonstrate DevOps and Platform Engineering skil
 ---
 
 **Note:** This is a demo application. The real value is in the automated pipeline and GitOps workflow, not the application complexity.
+
+## ArgoCD Integration Test - 2026-10-21 07:01:49
